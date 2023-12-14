@@ -135,4 +135,11 @@ for txt_file in txt_files:
 
 #####################stablediffusion部分#####################
 print("####### stable diffusion ########")
-os.system(parser.parse_args().stablediffusion)
+#加载prompts文档
+prompt_files=[f for f in os.listdir(prompt_path) if f.endswith('.txt')]
+for prompt_file in prompt_files:
+    txt_file_path = os.path.join(txt_path, txt_file)
+    with open(txt_file_path, 'r') as f:
+        prompt_sd = Sentence(f.read())
+        parser.parse_args().stablediffusion=f'./scripts/txt2img.py --prompt {prompt_sd} --ckpt <path/to/768model.ckpt/> --config configs/stable-diffusion/v2-inference-v.yaml --H 768 --W 768 --device cuda'
+        os.system(parser.parse_args().stablediffusion)
