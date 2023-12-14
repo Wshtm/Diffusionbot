@@ -15,6 +15,10 @@ from PIL import Image
 import requests
 from flair.data import Sentence
 from flair.models import SequenceTagger
+import argparse
+
+parser=argparse.ArgumentParser()
+parser.add_argument("--stablediffusion",type=str)
 
 #####################CLIP部分#####################
 print("####### CLIP ########")
@@ -128,3 +132,7 @@ for txt_file in txt_files:
         with open(f'{prompt_path}/{txt_file_without_extension}.txt', 'w') as f:
          f.write(prompt)
         print(f'Complete save prompt of {txt_file}')
+
+#####################stablediffusion部分#####################
+print("####### stable diffusion ########")
+os.system(parser.parse_args().stablediffusion)
